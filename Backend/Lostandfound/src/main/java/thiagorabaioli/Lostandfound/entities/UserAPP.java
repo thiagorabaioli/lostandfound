@@ -1,6 +1,11 @@
 package thiagorabaioli.Lostandfound.entities;
 
 
+import java.util.HashSet;
+import java.util.Set;
+
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,6 +21,10 @@ public class UserAPP {
     private String email;
     private String password;
     private String porNUmber;
+
+    @ElementCollection
+    @CollectionTable(name = "phone_number")
+    private Set<String> phoneNumber = new HashSet<>();
     
     public UserAPP() {}
 
@@ -66,6 +75,19 @@ public class UserAPP {
     public void setPorNUmber(String porNUmber) {
         this.porNUmber = porNUmber;
     }
+    public Set<String> getPhoneNumber() {
+        return phoneNumber;
+    }
+    public void setPhoneNumber(Set<String> phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+    public void addPhoneNumber(String phoneNumber) {
+        this.phoneNumber.add(phoneNumber);
+    }
+    public void removePhoneNumber(String phoneNumber) {
+        this.phoneNumber.remove(phoneNumber);
+    }
+    
 
     @Override
     public int hashCode() {
@@ -90,6 +112,14 @@ public class UserAPP {
         } else if (!id.equals(other.id))
             return false;
         return true;
+    }
+
+    public Set<String> getPhoneNumberSet() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumberSet(Set<String> phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
 
