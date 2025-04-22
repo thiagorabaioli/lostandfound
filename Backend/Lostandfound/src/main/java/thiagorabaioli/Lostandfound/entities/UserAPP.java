@@ -21,6 +21,7 @@ public class UserAPP {
     private String email;
     private String password;
     private String porNUmber;
+    private String birthDate;
 
     @ElementCollection
     @CollectionTable(name = "phone_number")
@@ -28,12 +29,13 @@ public class UserAPP {
     
     public UserAPP() {}
 
-    public UserAPP(Long id, String name, String email, String password, String porNUmber) {
+    public UserAPP(Long id, String name, String email, String password, String porNUmber, String birthDate) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.porNUmber = porNUmber;
+        this.birthDate = birthDate;
     }
 
     public Long getId() {
@@ -87,7 +89,20 @@ public class UserAPP {
     public void removePhoneNumber(String phoneNumber) {
         this.phoneNumber.remove(phoneNumber);
     }
-    
+    public Set<String> getPhoneNumberSet() {
+        return phoneNumber;
+    }
+    public void setPhoneNumberSet(Set<String> phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
 
     @Override
     public int hashCode() {
@@ -114,13 +129,7 @@ public class UserAPP {
         return true;
     }
 
-    public Set<String> getPhoneNumberSet() {
-        return phoneNumber;
-    }
 
-    public void setPhoneNumberSet(Set<String> phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
 
 
     
