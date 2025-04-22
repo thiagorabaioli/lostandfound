@@ -3,6 +3,8 @@ package thiagorabaioli.Lostandfound.entities;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -18,6 +20,9 @@ public class Claimant {
 
     @OneToOne(mappedBy = "claimant", cascade = CascadeType.ALL)
     private Delivery delivery;
+
+    @OneToMany(mappedBy = "claimant")
+    private List<ItemLost> itemLosts = new ArrayList<>();
 
     public Claimant() {}
 
@@ -58,6 +63,10 @@ public class Claimant {
 
     public void setDelivery(Delivery delivery) {
         this.delivery = delivery;
+    }
+
+    public List<ItemLost> getItemLosts() {
+        return itemLosts;
     }
 
     @Override
