@@ -12,6 +12,7 @@ public class Claimant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant instantClaimant;
     private String locale;
 
