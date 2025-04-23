@@ -2,6 +2,7 @@ package thiagorabaioli.Lostandfound.entities;
 
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.*;
@@ -26,6 +27,9 @@ public class UserAPP {
     @ElementCollection
     @CollectionTable(name = "phone_number")
     private Set<String> phoneNumber = new HashSet<>();
+
+    @OneToMany(mappedBy = "id.userAPP")
+    private Set<ItemLostUserAPP> items = new HashSet<>();
     
     public UserAPP() {}
 
@@ -37,6 +41,7 @@ public class UserAPP {
         this.porNUmber = porNUmber;
         this.birthDate = birthDate;
     }
+
 
     public Long getId() {
         return id;
@@ -102,6 +107,15 @@ public class UserAPP {
 
     public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public Set<ItemLostUserAPP> getItems() {
+        return items;
+    }
+
+    //Return tje ItemLost associated with UserAPP
+    public List<ItemLost> getItemLost(){
+        return items.stream().map(x -> x.getItemLost()).toList();
     }
 
     @Override

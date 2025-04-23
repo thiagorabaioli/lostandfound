@@ -5,6 +5,11 @@ import thiagorabaioli.Lostandfound.entities.enums.TYPEOFLOST;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "tb_item_lost")
@@ -28,6 +33,9 @@ public class ItemLost {
         @ManyToOne
         @JoinColumn(name = "claimant_id")
         private Claimant claimant;
+
+        @OneToMany(mappedBy = "id.itemLost")
+        private Set<ItemLostUserAPP> items = new HashSet<>();
 
 
     public ItemLost() {}
@@ -125,8 +133,25 @@ public class ItemLost {
         this.claimant = claimant;
     }
 
-
-
-
+    public Set<ItemLostUserAPP> getItems() {
+        return items;
     }
+
+    //Return UserAPP associated with de ItemLost
+    public List<UserAPP> getUserAPP(){
+        return items.stream().map(x -> x.getUserAPP()).toList();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        ItemLost itemLost = (ItemLost) o;
+        return Objects.equals(id, itemLost.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
+}
 
