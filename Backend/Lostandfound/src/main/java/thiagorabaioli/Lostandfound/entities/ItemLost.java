@@ -19,7 +19,6 @@ public class ItemLost {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
-        private Instant instantItemLost;
         private boolean status;
         private Integer type;
         private String location;
@@ -31,7 +30,7 @@ public class ItemLost {
         private String imgUrl;
 
         @ManyToOne
-        @JoinColumn(name = "claimant_id")
+        @JoinColumn(name = "claimant_id", nullable = true)
         private Claimant claimant;
 
         @OneToMany(mappedBy = "id.itemLost")
@@ -40,9 +39,8 @@ public class ItemLost {
 
     public ItemLost() {}
 
-    public ItemLost(Long id, Instant instantItemLost, boolean status, TYPEOFLOST type, String location, String whoFind, String description, LocalDate dataFound, String imgUrl, Claimant claimant) {
+    public ItemLost(Long id, boolean status, TYPEOFLOST type, String location, String whoFind, String description, LocalDate dataFound, String imgUrl) {
         this.id = id;
-        this.instantItemLost = instantItemLost;
         this.status = status;
         this.type = type.getCod();
         this.location = location;
@@ -50,7 +48,7 @@ public class ItemLost {
         this.description = description;
         this.dataFound = dataFound;
         this.imgUrl = imgUrl;
-        this.claimant = claimant;
+        this.claimant = null;
     }
 
     public String getImgUrl() {
@@ -107,14 +105,6 @@ public class ItemLost {
 
     public void setStatus(boolean status) {
         this.status = status;
-    }
-
-    public Instant getInstantItemLost() {
-        return instantItemLost;
-    }
-
-    public void setInstantItemLost(Instant instantItemLost) {
-        this.instantItemLost = instantItemLost;
     }
 
     public Long getId() {
