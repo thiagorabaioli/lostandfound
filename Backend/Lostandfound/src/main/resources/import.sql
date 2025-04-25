@@ -42,3 +42,14 @@ INSERT INTO item_lost_user_app (item_lost_id, user_app_id) VALUES (7, 1);
 
 -- Associar o item 8 (Óculos) ao utilizador 2
 INSERT INTO item_lost_user_app (item_lost_id, user_app_id) VALUES (8, 2);
+
+INSERT INTO tb_role (authority) VALUES ('ROLE_OPERATOR');
+INSERT INTO tb_role (authority) VALUES ('ROLE_VIGILANTE');
+INSERT INTO tb_role (authority) VALUES ('ROLE_ADMIN');
+
+INSERT INTO tb_user_role (user_id, role_id) VALUES (1, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (1, 2);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 2);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (3, 2);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (3, 3);

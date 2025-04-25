@@ -30,6 +30,11 @@ public class UserAPP {
 
     @OneToMany(mappedBy = "id.userAPP")
     private Set<ItemLostUserAPP> items = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "tb_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
+    
     
     public UserAPP() {}
 
@@ -111,6 +116,13 @@ public class UserAPP {
 
     public Set<ItemLostUserAPP> getItems() {
         return items;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     //Return tje ItemLost associated with UserAPP
