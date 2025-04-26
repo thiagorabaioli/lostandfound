@@ -2,6 +2,8 @@ package thiagorabaioli.Lostandfound.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,8 +29,8 @@ public class UserAPPController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserAPPDTO>> findAll() {
-        List<UserAPPDTO> result = service.findAll();
+    public ResponseEntity<Page<UserAPPDTO>> findAll(Pageable pageable) {
+        Page<UserAPPDTO> result = service.findAll(pageable);
         return ResponseEntity.ok().body(result);
     }
 }
