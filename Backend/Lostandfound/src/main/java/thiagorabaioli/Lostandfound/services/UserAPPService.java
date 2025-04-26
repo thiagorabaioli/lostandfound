@@ -10,10 +10,8 @@ import thiagorabaioli.Lostandfound.DTO.UserAPPDTO;
 import thiagorabaioli.Lostandfound.entities.UserAPP;
 import thiagorabaioli.Lostandfound.repositories.UserAPPRepository;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 @Service
 public class UserAPPService {
@@ -33,5 +31,17 @@ public class UserAPPService {
     public Page<UserAPPDTO> findAll(Pageable pageable) {
         Page<UserAPP> result = repository.findAll(pageable);
         return result.map(x-> new UserAPPDTO(x));
+    }
+
+    @Transactional
+    public UserAPPDTO insert(UserAPPDTO dto) {
+        UserAPP entity = new UserAPP();
+        entity.setName(dto.getName());
+        entity.setEmail(dto.getEmail());
+        entity.setPassword(dto.getPassword());
+        entity.setPorNUmber(dto.getPorNUmber());
+        entity.setBirthDate(dto.getBirthDate());
+        entity = repository.save(entity);
+        return new UserAPPDTO(entity);
     }
 }
