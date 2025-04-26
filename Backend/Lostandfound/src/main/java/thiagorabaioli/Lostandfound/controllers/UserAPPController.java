@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import thiagorabaioli.Lostandfound.DTO.UserAPPDTO;
 import thiagorabaioli.Lostandfound.services.UserAPPService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/usersapp")
 public class UserAPPController {
@@ -22,5 +24,11 @@ public class UserAPPController {
         UserAPPDTO dto = service.findById(id);
         return ResponseEntity.ok().body(dto);
 
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserAPPDTO>> findAll() {
+        List<UserAPPDTO> result = service.findAll();
+        return ResponseEntity.ok().body(result);
     }
 }
