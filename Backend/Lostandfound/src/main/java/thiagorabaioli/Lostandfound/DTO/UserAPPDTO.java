@@ -1,5 +1,8 @@
 package thiagorabaioli.Lostandfound.DTO;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import thiagorabaioli.Lostandfound.entities.UserAPP;
 
 
@@ -7,10 +10,17 @@ public class UserAPPDTO {
 
 
     private Long id;
+
+    @NotBlank(message = "name not blank")
+    @Size(min = 3, max = 80, message = "Name must be between 3 and 80 characters")
     private String name;
+
+    @Email(message = "email field")
     private String email;
     private String password;
+
     private String porNUmber;
+
     private String birthDate;
 
     public UserAPPDTO() {}

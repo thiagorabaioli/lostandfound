@@ -1,6 +1,7 @@
 package thiagorabaioli.Lostandfound.controllers;
 
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,7 +35,7 @@ public class UserAPPController {
     }
 
     @PostMapping
-    public ResponseEntity<UserAPPDTO> insert(@RequestBody UserAPPDTO dto) {
+    public ResponseEntity<UserAPPDTO> insert(@Valid @RequestBody UserAPPDTO dto) {
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(dto.getId()).toUri();
@@ -42,7 +43,7 @@ public class UserAPPController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<UserAPPDTO> update( @PathVariable  Long id, @RequestBody UserAPPDTO dto) {
+    public ResponseEntity<UserAPPDTO> update( @PathVariable  Long id, @Valid  @RequestBody UserAPPDTO dto) {
         dto = service.update(id, dto);
         return ResponseEntity.ok().body(dto);
     }
