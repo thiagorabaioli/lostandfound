@@ -3,9 +3,11 @@ package thiagorabaioli.Lostandfound.services;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import thiagorabaioli.Lostandfound.DTO.UserAPPDTO;
 import thiagorabaioli.Lostandfound.entities.UserAPP;
@@ -42,10 +44,15 @@ public class UserAPPService {
     }
     @Transactional
     public UserAPPDTO update(Long id, UserAPPDTO dto) {
-        UserAPP entity = repository.getReferenceById(id);
-        copyDtoToEntity(dto, entity);
-        entity = repository.save(entity);
-        return new UserAPPDTO(entity);
+        try {
+            UserAPP entity = repository.getReferenceById(id);
+            copyDtoToEntity(dto, entity);
+            entity = repository.save(entity);
+            return new UserAPPDTO(entity);
+        }
+        catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException("id not found: " + id);
+        }
     }
 
     private void copyDtoToEntity(UserAPPDTO dto, UserAPP entity) {
@@ -56,8 +63,17 @@ public class UserAPPService {
         entity.setBirthDate(dto.getBirthDate());
     }
 
+    @Transactional(propagation = Propagation.SUPPORTS)
     public void deleteById(Long id) {
-        repository.deleteById(id);
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException("Resource not found: " + id);
+        }
+        try {
+            repository.deleteById(id);
+        }
+        catch (DataIntegrityViolationException e) {
+            throw new DataBaseException("reference integrity violation");
+        }
     }
 
 

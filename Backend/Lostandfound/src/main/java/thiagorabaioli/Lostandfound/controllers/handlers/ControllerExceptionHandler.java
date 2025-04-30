@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import thiagorabaioli.Lostandfound.DTO.CustomError;
+import thiagorabaioli.Lostandfound.services.DataBaseException;
 import thiagorabaioli.Lostandfound.services.exceptions.ResourceNotFoundException;
 
 import java.time.Instant;
@@ -17,6 +18,13 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<CustomError> customName(ResourceNotFoundException e, HttpServletRequest request) {
         HttpStatus status = HttpStatus.NOT_FOUND;
+        CustomError err = new CustomError(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(DataBaseException.class)
+    public ResponseEntity<CustomError> integrity(DataBaseException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.CONFLICT;
         CustomError err = new CustomError(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
