@@ -36,12 +36,25 @@ public class UserAPPService {
     @Transactional
     public UserAPPDTO insert(UserAPPDTO dto) {
         UserAPP entity = new UserAPP();
+        copyDtoToEntity(dto, entity);
+        entity = repository.save(entity);
+        return new UserAPPDTO(entity);
+    }
+    @Transactional
+    public UserAPPDTO update(Long id, UserAPPDTO dto) {
+        UserAPP entity = repository.getReferenceById(id);
+        copyDtoToEntity(dto, entity);
+        entity = repository.save(entity);
+        return new UserAPPDTO(entity);
+    }
+
+    private void copyDtoToEntity(UserAPPDTO dto, UserAPP entity) {
         entity.setName(dto.getName());
         entity.setEmail(dto.getEmail());
         entity.setPassword(dto.getPassword());
         entity.setPorNUmber(dto.getPorNUmber());
         entity.setBirthDate(dto.getBirthDate());
-        entity = repository.save(entity);
-        return new UserAPPDTO(entity);
     }
+
+
 }

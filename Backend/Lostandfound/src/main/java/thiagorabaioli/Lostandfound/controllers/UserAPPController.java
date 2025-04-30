@@ -35,10 +35,16 @@ public class UserAPPController {
 
     @PostMapping
     public ResponseEntity<UserAPPDTO> insert(@RequestBody UserAPPDTO dto) {
-              dto = service.insert(dto);
+        dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<UserAPPDTO> update( @PathVariable  Long id, @RequestBody UserAPPDTO dto) {
+        dto = service.update(id, dto);
+        return ResponseEntity.ok().body(dto);
     }
 
 }
