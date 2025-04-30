@@ -1,6 +1,7 @@
 package thiagorabaioli.Lostandfound.services;
 
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import thiagorabaioli.Lostandfound.DTO.UserAPPDTO;
 import thiagorabaioli.Lostandfound.entities.UserAPP;
 import thiagorabaioli.Lostandfound.repositories.UserAPPRepository;
+import thiagorabaioli.Lostandfound.services.exceptions.ResourceNotFoundException;
 
 import java.util.Optional;
 
@@ -21,10 +23,8 @@ public class UserAPPService {
 
     @Transactional(readOnly = true)
     public UserAPPDTO findById(Long id) {
-        Optional<UserAPP> result = repository.findById(id);
-        UserAPP entity = result.get();
-        UserAPPDTO userDTO = new UserAPPDTO(entity);
-        return userDTO;
+        UserAPP entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Resource not found! "));
+        return new UserAPPDTO(entity);
     }
 
     @Transactional(readOnly = true)
