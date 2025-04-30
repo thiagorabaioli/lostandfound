@@ -47,4 +47,12 @@ public class UserAPPController {
         return ResponseEntity.ok().body(dto);
     }
 
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable  Long id) {
+        service.deleteById(id);
+        return ResponseEntity.noContent().build();
+
+    }
+
+
 }

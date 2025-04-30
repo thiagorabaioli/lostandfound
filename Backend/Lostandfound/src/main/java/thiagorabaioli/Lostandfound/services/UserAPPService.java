@@ -56,5 +56,9 @@ public class UserAPPService {
         entity.setBirthDate(dto.getBirthDate());
     }
 
+    public void deleteById(Long id) {
+        repository.deleteById(id);
+    }
+
 
 }
