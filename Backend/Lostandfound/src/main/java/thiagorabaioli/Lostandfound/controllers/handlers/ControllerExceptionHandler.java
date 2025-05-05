@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import thiagorabaioli.Lostandfound.DTO.CustomError;
 import thiagorabaioli.Lostandfound.DTO.ValidationError;
-import thiagorabaioli.Lostandfound.services.DataBaseException;
+import thiagorabaioli.Lostandfound.services.exceptions.DataBaseException;
 import thiagorabaioli.Lostandfound.services.exceptions.ResourceNotFoundException;
 
 import java.time.Instant;

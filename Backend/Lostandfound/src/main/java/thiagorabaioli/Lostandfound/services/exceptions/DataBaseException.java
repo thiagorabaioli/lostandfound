@@ -1,4 +1,4 @@
-package thiagorabaioli.Lostandfound.services;
+package thiagorabaioli.Lostandfound.services.exceptions;
 
 public class DataBaseException extends RuntimeException{
 

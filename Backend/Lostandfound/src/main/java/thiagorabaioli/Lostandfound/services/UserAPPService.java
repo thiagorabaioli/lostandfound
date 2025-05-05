@@ -12,9 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import thiagorabaioli.Lostandfound.DTO.UserAPPDTO;
 import thiagorabaioli.Lostandfound.entities.UserAPP;
 import thiagorabaioli.Lostandfound.repositories.UserAPPRepository;
+import thiagorabaioli.Lostandfound.services.exceptions.DataBaseException;
 import thiagorabaioli.Lostandfound.services.exceptions.ResourceNotFoundException;
-
-import java.util.Optional;
 
 
 @Service
