@@ -32,7 +32,8 @@ public class UserAPP {
     private Set<ItemLostUserAPP> items = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "tb_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "tb_user_role", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
     
     
@@ -125,7 +126,20 @@ public class UserAPP {
         this.roles = roles;
     }
 
-    //Return tje ItemLost associated with UserAPP
+    public void addRole(Role role) {
+        roles.add(role);
+    }
+
+    public boolean hasRole(String roleName){
+        for(Role role : roles){
+            if(role.getAuthority().equals(roleName)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //Return type ItemLost associated with UserAPP
     public List<ItemLost> getItemLost(){
         return items.stream().map(x -> x.getItemLost()).toList();
     }
