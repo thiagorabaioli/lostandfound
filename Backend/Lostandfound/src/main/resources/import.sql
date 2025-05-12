@@ -1,4 +1,4 @@
-INSERT INTO tb_user_app (name, email, password, pornumber, birth_date) VALUES ('Helio Silva', 'heliosilva@mail.com', '12345', '0242526', '1984-03-17');
+INSERT INTO tb_user_app (name, email, password, pornumber, birth_date) VALUES ('Isaura Silva', 'isaurasilva@mail.com', '12345', '0242526', '1984-03-17');
 INSERT INTO phone_number (userapp_id, phone_number) VALUES (1, '912345678'), (1, '934567890');
 
 INSERT INTO tb_user_app (name, email, password, pornumber, birth_date) VALUES ('Fábio Costa', 'Fabiocosta@mail.com', '12345', '0242527', '1984-03-18');
@@ -48,8 +48,8 @@ INSERT INTO tb_role (authority) VALUES ('ROLE_VIGILANTE');
 INSERT INTO tb_role (authority) VALUES ('ROLE_ADMIN');
 
 INSERT INTO tb_user_role (user_id, role_id) VALUES (1, 1);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (1, 2);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 1);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 2);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (3, 1);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (3, 2);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (3, 3);
