@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import thiagorabaioli.Lostandfound.DTO.UserAPPDTO;
@@ -21,6 +22,7 @@ public class UserAPPController {
     @Autowired
     private UserAPPService service;
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_VIGILANTE')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<UserAPPDTO> findById(@PathVariable  Long id) {
         UserAPPDTO dto = service.findById(id);
@@ -34,6 +36,7 @@ public class UserAPPController {
         return ResponseEntity.ok().body(result);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<UserAPPDTO> insert(@Valid @RequestBody UserAPPDTO dto) {
         dto = service.insert(dto);
