@@ -1,12 +1,12 @@
 INSERT INTO tb_user_app (name, email, password, pornumber, birth_date) VALUES ('Isaura Silva', 'isaurasilva@mail.com', '12345', '0242526', '1984-03-17');
 INSERT INTO phone_number (userapp_id, phone_number) VALUES (1, '912345678'), (1, '934567890');
 
-INSERT INTO tb_user_app (name, email, password, pornumber, birth_date) VALUES ('Fábio Costa', 'Fabiocosta@mail.com', '12345', '0242527', '1984-03-18');
+INSERT INTO tb_user_app (name, email, password, pornumber, birth_date) VALUES ('Fábio Costa', 'Fabiocosta@mail.com', '$2a$10$90o4sXim77/v0rFrMIPZoeOcRJQ2A9/vYkmm6.0ZVk.9pDL6wHBXu', '0242527', '1984-03-18');
 INSERT INTO phone_number (userapp_id, phone_number) VALUES (2, '912345679');
 
 
 
-INSERT INTO tb_user_app (name, email, password, pornumber, birth_date) VALUES ('David Morgado', 'davidmorgado@mail.com', '12345', '0242528', '1984-03-19');
+INSERT INTO tb_user_app (name, email, password, pornumber, birth_date) VALUES ('David Morgado', 'davidmorgado@mail.com', '$2a$10$90o4sXim77/v0rFrMIPZoeOcRJQ2A9/vYkmm6.0ZVk.9pDL6wHBXu', '0242528', '1984-03-19');
 INSERT INTO phone_number (userapp_id, phone_number) VALUES (3, '912345680');
 
 INSERT INTO tb_item_lost (status, type, location, who_find, description, data_found, img_url) VALUES ( true, 1, 'Piso 2 WC Masculino', 'Visitante Maria Fernandes', 'Carteira de couro preta com documentos', '2025-04-01', 'https://example.com/img/carteira.jpg');
