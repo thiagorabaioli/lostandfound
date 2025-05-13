@@ -1,9 +1,25 @@
 package thiagorabaioli.Lostandfound.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import thiagorabaioli.Lostandfound.entities.UserAPP;
+import thiagorabaioli.Lostandfound.projections.UserDetailsProjection;
+
+import java.util.List;
 
 @Repository
 public interface UserAPPRepository extends JpaRepository<UserAPP, Long> {
-}
+
+    @Query(nativeQuery = true, value = """
+    SELECT tb_user_app.email AS username, tb_user_app.password, tb_role.id AS roleId, tb_role.authority
+    FROM tb_user_app
+    INNER JOIN tb_user_role ON tb_user_app.id = tb_user_role.user_id
+    INNER JOIN tb_role ON tb_role.id = tb_user_role.role_id
+    WHERE tb_user_app.email = :email
+    	""")
+    List<UserDetailsProjection> searchUserAndRolesByEmail(String email);
+    
+  }
+
+
