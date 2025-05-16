@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,7 +61,6 @@ public class UserAPPService {
     private void copyDtoToEntity(UserAPPDTO dto, UserAPP entity) {
         entity.setName(dto.getName());
         entity.setEmail(dto.getEmail());
-        entity.setPassword(dto.getPassword());
         entity.setPorNUmber(dto.getPorNUmber());
         entity.setBirthDate(dto.getBirthDate());
     }
@@ -74,6 +77,25 @@ public class UserAPPService {
             throw new DataBaseException("reference integrity violation");
         }
     }
+
+    protected UserAPP authenticated() {
+
+        try {
+           
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            Jwt jwtPrincipal = (Jwt) authentication.getPrincipal();
+            String username = jwtPrincipal.getClaim("username");
+             return repository.findByEmail(username).get();
+        }catch (Exception e) {
+            throw new ResourceNotFoundException("User not found");
+        }
+        
+    }
+    @Transactional(readOnly = true)
+	public UserAPPDTO getMe() {
+		UserAPP entity = authenticated();
+		return new UserAPPDTO(entity);
+	}
 
 
 }

@@ -1,6 +1,7 @@
 package thiagorabaioli.Lostandfound.entities;
 
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -25,7 +26,7 @@ public class UserAPP implements UserDetails {
     private String email;
     private String password;
     private String porNUmber;
-    private String birthDate;
+    private LocalDate birthDate;
 
     @ElementCollection
     @CollectionTable(name = "phone_number")
@@ -42,7 +43,7 @@ public class UserAPP implements UserDetails {
     
     public UserAPP() {}
 
-    public UserAPP(Long id, String name, String email, String password, String porNUmber, String birthDate) {
+    public UserAPP(Long id, String name, String email, String password, String porNUmber, LocalDate birthDate) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -141,11 +142,11 @@ public class UserAPP implements UserDetails {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 

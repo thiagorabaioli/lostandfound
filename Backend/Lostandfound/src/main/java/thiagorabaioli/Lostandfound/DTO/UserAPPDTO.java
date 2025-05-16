@@ -1,5 +1,9 @@
 package thiagorabaioli.Lostandfound.DTO;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.security.core.GrantedAuthority;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -17,19 +21,20 @@ public class UserAPPDTO {
 
     @Email(message = "email field")
     private String email;
-    private String password;
+   
 
     private String porNUmber;
 
-    private String birthDate;
+    private LocalDate birthDate;
+
+    private List<String> roles = new ArrayList<>();
 
     public UserAPPDTO() {}
 
-    public UserAPPDTO(Long id, String name, String email, String password, String porNUmber, String birthDate) {
+    public UserAPPDTO(Long id, String name, String email, String password, String porNUmber, LocalDate birthDate) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.password = password;
         this.porNUmber = porNUmber;
         this.birthDate = birthDate;
 
@@ -39,9 +44,11 @@ public class UserAPPDTO {
         id = entity.getId();
         name = entity.getName();
         email = entity.getEmail();
-        password = entity.getPassword();
         porNUmber = entity.getPorNUmber();
         birthDate = entity.getBirthDate();
+        for (GrantedAuthority role : entity.getAuthorities()) {
+			roles.add(role.getAuthority());
+		}
 
     }
 
@@ -57,16 +64,16 @@ public class UserAPPDTO {
         return email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public String getPorNUmber() {
         return porNUmber;
     }
 
-    public String getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
+    }
+
+    public List<String> getRoles() {
+        return roles;
     }
 
 }

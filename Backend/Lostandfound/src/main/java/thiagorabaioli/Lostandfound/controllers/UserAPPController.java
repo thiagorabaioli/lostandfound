@@ -13,7 +13,6 @@ import thiagorabaioli.Lostandfound.DTO.UserAPPDTO;
 import thiagorabaioli.Lostandfound.services.UserAPPService;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/usersapp")
@@ -22,10 +21,21 @@ public class UserAPPController {
     @Autowired
     private UserAPPService service;
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_VIGILANTE')")
+   
+    @PreAuthorize("hasAnyRole('ROLE_VIGILANTE')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<UserAPPDTO> findById(@PathVariable  Long id) {
         UserAPPDTO dto = service.findById(id);
+        return ResponseEntity.ok().body(dto);
+
+    }
+
+  
+    
+    @PreAuthorize("hasAnyRole('ROLE_OPERATOR', 'ROLE_VIGILANTE', 'ROLE_ADMIN')")
+    @GetMapping(value = "/me")
+    public ResponseEntity<UserAPPDTO> getMe() {
+        UserAPPDTO dto = service.getMe();
         return ResponseEntity.ok().body(dto);
 
     }
